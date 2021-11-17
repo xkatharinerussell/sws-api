@@ -53,13 +53,13 @@ paths:
           required: false
           schema:
             type: string
-          description: Number of items returned for the page
+          description: Number of items returned for the page. Default if not provided is 3.
         - in: query
           name: page
           required: false
           schema:
             type: string
-          description: Number to identify the page to return
+          description: Number to identify the page to return. Default if not provided is 1.
         
       responses:
         '200':
