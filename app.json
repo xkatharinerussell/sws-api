@@ -1,0 +1,12 @@
+{
+    "env": {
+      "NODE_ENV": {
+        "description": "The environment app is running in",
+        "value": "production"
+      },
+      "SERVER_PORT": {
+        "description": "Port number for the app",
+        "value": "8081"
+      }
+    }
+  }

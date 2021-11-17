@@ -16,5 +16,9 @@ export const dbConfig = {
         storage: path.join(__dirname, './database/sws-test.sqlite3'),
         logging: false
     },
-    production: {},
+    production: {
+        dialect: "sqlite",
+        storage: path.join(__dirname, './database/sws.sqlite3'),
+        logging: false
+    }
 }
