@@ -1,4 +1,4 @@
-import { getLastSharePrice, ninetyDayVolatility } from './companyControllerHelper.js';
+import { getLastSharePrice, ninetyDayVolatility } from '../controllers/companyControllerHelper.js';
 
 /* Functions to enforce API response structure */
 

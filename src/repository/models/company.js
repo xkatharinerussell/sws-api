@@ -1,5 +1,5 @@
 // Local Imports
-import database from "../database/database.js";
+import database from "../database.js";
 import Score from "./score.js";
 import SharePrice from "./sharePrice.js";
 

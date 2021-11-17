@@ -1,5 +1,5 @@
 // Local Imports
-import database from "../database/database.js";
+import database from "../database.js";
 
 // Destructure Sequelize vars
 const { Sequelize, db } = database;

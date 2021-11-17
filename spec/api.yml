@@ -6,8 +6,8 @@ info:
   title: SWS Companies API
   contact:
     email: katharinezrussell@gmail.com
-host: 
-basePath: /v1
+host: https://sws-application.herokuapp.com
+basePath: /
 tags:
   - name: Companies
 paths:

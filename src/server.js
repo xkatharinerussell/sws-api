@@ -3,7 +3,7 @@ import cors from "cors";
 import logger from 'loglevel';
 
 // Local imports
-import { getRoutes } from "./routes.js";
+import { getRoutes } from "./routes/routes.js";
 
 const DEFAULT_PORT = 8081;
 // Get Port number
@@ -11,8 +11,6 @@ const port = process.env.PORT || DEFAULT_PORT;
 
 export const startServer = () => {
     const app = express();
-    // Use express json
-    app.use(express.json());
     // Use cors
     app.use(cors());
     // Mount routes on '/' path

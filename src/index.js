@@ -2,7 +2,7 @@
 import logger from 'loglevel'
 
 // Local Imports
-import { startServer } from "./routes/server.js";
+import { startServer } from "./server.js";
  
 // Set log level to info
 logger.setLevel('info');

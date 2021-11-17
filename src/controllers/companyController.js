@@ -2,7 +2,7 @@
 import logger from 'loglevel';
 
 // Local Imports
-import { companiesDto } from "./companiesDto.js";
+import { companiesDto } from "../models/companiesDto.js";
 import { queryAllCompanies } from "../service/companyService.js";
 import { getPagingData } from "./companyControllerHelper.js";
 
@@ -18,11 +18,10 @@ export const getCompanies = async (req, res) => {
         logger.info("Starting - get all companies")
         const { count, companies } = await queryAllCompanies(req);
         const pagingData = getPagingData(count, size ? size : DEFAULT_LIMIT, page);
-        res.json(companiesDto(companies, pagingData, req.query));
+        res.send(companiesDto(companies, pagingData, req.query));
         logger.info("Success - finished get all companies")
     }
     catch (err) {
-        // TODO: return 500 error format better
         logger.error(`Error: ${err}`);
         res.status(500).json({
             status: 500, 

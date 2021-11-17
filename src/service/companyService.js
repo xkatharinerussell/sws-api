@@ -2,7 +2,7 @@
 import logger from 'loglevel';
 
 // Local Imports
-import Company from "../models/company.js";
+import Company from "../repository/models/company.js";
 import { companiesBaseQuery, companiesAttributes, includeScore, includeSharePrices } from "./companyQueries.js"
 
 import { Sequelize } from "sequelize";

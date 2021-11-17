@@ -2,11 +2,12 @@
 import request from 'supertest';
 
 // Local Imports
-import { startServer } from '../src/routes/server.js';
-import database from '../src/database/database.js';
+import { startServer } from '../src/server.js';
+import database from '../src/repository/database.js';
 
 /* Integration tests to call GetCompanies Endpoint */
 
+const port = process.env.PORT || 8081;
 const { db } = database;
 let baseUrl;
 let server;
@@ -14,7 +15,7 @@ let server;
 beforeAll(async () => {
     // Start server before each test run
     server = await startServer();
-    baseUrl = `http://localhost:8081`;
+    baseUrl = `http://localhost:${port}`;
 })
 
 afterAll(async () => {
