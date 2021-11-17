@@ -11,38 +11,6 @@ basePath: /v1
 tags:
   - name: Companies
 paths:
-  /companies/{companyId}:
-    get:
-      tags:
-        - Companies
-      summary: Get a Company
-      description: 'Get a Company by Id'
-      parameters:
-        - in: path
-          name: companyId
-          required: true
-          schema:
-            type: string
-          description: Identifier for company
-      responses:
-        '200':
-          description: Company Returned
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Company"
-        '404':
-          description: Company Not Found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
   /companies:
     get:
       tags:
@@ -79,19 +47,19 @@ paths:
           required: false
           schema:
             type: string
-          description: Return results sorted in particular order
+          description: Return results sorted in ascending order based on attribute
         - in: query
-          name: limit
+          name: size
           required: false
           schema:
             type: string
-          description: Limit number of results
+          description: Number of items returned for the page
         - in: query
-          name: offset
+          name: page
           required: false
           schema:
             type: string
-          description: Offset results?
+          description: Number to identify the page to return
         
       responses:
         '200':
@@ -109,6 +77,12 @@ paths:
                     type: string
                   prev:
                     type: string
+        '400':
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
         '500':
           description: Internal Server Error
           content:
@@ -142,6 +116,10 @@ components:
           type: string
           description: Name of the Company
           example: Tesla
+        exchangeSymbol:
+          type: string
+          description: Exchange company is listed on
+          example: NASDAQGS
         uniqueSymbol:
           type: string
           description: Representation of exchange and ticker symbols
@@ -151,7 +129,7 @@ components:
         volatility:
           type: number
           description: Volatility in price within the last 90 days
-        snowflake:
+        snowflakeScore:
           $ref: "#/components/schemas/Snowflake"
         sharePrices:
           $ref: "#/components/schemas/SharePrices"
@@ -159,26 +137,8 @@ components:
     Snowflake:
       type: object
       required:
-        - dividend
-        - future
-        - health
-        - management
-        - past
-        - value
         - total
       properties:
-        dividend:
-          type: integer
-        future:
-          type: integer
-        health:
-          type: integer
-        management:
-          type: integer
-        past:
-          type: integer
-        value:
-          type: integer
         total:
           type: integer
           
@@ -208,10 +168,35 @@ components:
           $ref: "#/components/schemas/EnumErrorCodes"
         detail:
           type: string
+
+    ValidationErrorResponse:
+      type: object
+      required:
+        - status
+        - code
+        - errors
+      properties:
+        status:
+          type: string
+        code:
+          $ref: "#/components/schemas/EnumErrorCodes"
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              msg: 
+                type: string
+              param:
+                type: string
+              location:
+                type: string
           
     # Enums
     EnumErrorCodes:
       type: string
       enum:
-        - NOT_FOUND
+        - INVALID_REQUEST
         - INTERNAL_SERVER_ERROR

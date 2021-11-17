@@ -11,6 +11,6 @@ export const getRoutes = () => {
     const router = express.Router();
 
     // Route to get all companies
-    router.get('/company', getCompaniesValidator, validateRequest, getCompanies);   
+    router.get('/companies', getCompaniesValidator, validateRequest, getCompanies);   
     return router;
 }

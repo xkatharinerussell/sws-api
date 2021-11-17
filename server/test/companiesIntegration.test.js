@@ -27,7 +27,7 @@ describe('Companies Endpoint', () => {
     it("Return error when invalid Query Params", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?exchange=ASXL&minScore=-1&maxScore=50&orderBy=total');
+        .get('/companies?exchange=ASXL&minScore=-1&maxScore=50&orderBy=total');
 
         // Assert
         expect(response.statusCode).toBe(400);
@@ -44,7 +44,7 @@ describe('Companies Endpoint', () => {
     it("Use default pagination", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=false');
+        .get('/companies?sharePrices=false');
 
         // Assert
         expect(response.statusCode).toBe(200);
@@ -56,7 +56,7 @@ describe('Companies Endpoint', () => {
     it("Get results with specified pagination", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=false&size=4&page=2');
+        .get('/companies?sharePrices=false&size=4&page=2');
 
         // Assert
         expect(response.statusCode).toBe(200);
@@ -68,7 +68,7 @@ describe('Companies Endpoint', () => {
     it("Get companies with Share Prices", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=true&size=1&page=1');
+        .get('/companies?sharePrices=true&size=1&page=1');
         
         // Assert
         expect(response.statusCode).toBe(200);
@@ -78,7 +78,7 @@ describe('Companies Endpoint', () => {
     it("Get companies ordered by volatility", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=false&orderBy=volatility&size=2&page=1');
+        .get('/companies?sharePrices=false&orderBy=volatility&size=2&page=1');
 
         // Assert
         expect(response.statusCode).toBe(200);
@@ -88,7 +88,7 @@ describe('Companies Endpoint', () => {
     it("Get companies ordered by score", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=false&orderBy=score&size=2&page=1');
+        .get('/companies?sharePrices=false&orderBy=score&size=2&page=1');
 
         // Assert
         expect(response.statusCode).toBe(200);
@@ -98,7 +98,7 @@ describe('Companies Endpoint', () => {
     it("Get companies in score range", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=false&minScore=10&maxScore=12&size=2&page=1');
+        .get('/companies?sharePrices=false&minScore=10&maxScore=12&size=2&page=1');
 
         // Assert
         expect(response.statusCode).toBe(200);
@@ -111,7 +111,7 @@ describe('Companies Endpoint', () => {
     it("Get companies matching exchange", async () => {
         // Act
         const response = await request(baseUrl)
-        .get('/company?sharePrices=false&exchange=ASX&size=2&page=1');
+        .get('/companies?sharePrices=false&exchange=ASX&size=2&page=1');
 
         // Assert
         expect(response.statusCode).toBe(200);
