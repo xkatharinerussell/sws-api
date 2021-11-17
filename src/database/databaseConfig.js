@@ -8,7 +8,7 @@ const __dirname = path.resolve();
 export const dbConfig = {
     development: {
         dialect: "sqlite",
-        storage: path.join(__dirname, '../database/sws.sqlite3'),
+        storage: path.join(__dirname, './database/sws.sqlite3'),
         logging: false
     },
     test: {
