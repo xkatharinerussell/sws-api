@@ -42,6 +42,7 @@ export const ninetyDayVolatility = (company) => {
 }
 
 // Round a float to 2 decimal places
+// TODO: make this generic function to round to any number of decimal places
 const roundToTwo = (num) => {
     return +(Math.round(num + "e+2") + "e-2");
 }
