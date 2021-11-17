@@ -7,7 +7,7 @@ import { getRoutes } from "./routes.js";
 
 const DEFAULT_PORT = 8081;
 // Get Port number
-const port = process.env.SERVER_PORT || DEFAULT_PORT;
+const port = process.env.PORT || DEFAULT_PORT;
 
 export const startServer = () => {
     const app = express();
