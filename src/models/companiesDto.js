@@ -18,8 +18,8 @@ export const companiesDto = (companies, pagingData, reqQuery) => {
         lastSharePrice: getLastSharePrice(company),
         volatility: ninetyDayVolatility(company),
         snowflakeScore: company.swsCompanyScore,
-        // Exclude share prices if 'sharePrices' query param is false
-        sharePrices: sharePrices == "false" ? undefined : company.swsCompanyPriceCloses
+        // Include share prices only if 'sharePrices' query param is true. This is an optional parameter
+        sharePrices: sharePrices !== "true" ? undefined : company.swsCompanyPriceCloses
     }));
 
     // Sort by price volatility over last 90 days.

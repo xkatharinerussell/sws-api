@@ -29,12 +29,10 @@ describe('Companies Endpoint', () => {
         // Act
         const response = await request(baseUrl)
         .get('/companies?exchange=ASXL&minScore=-1&maxScore=50&orderBy=total');
-
+        console.log(response.body);
         // Assert
         expect(response.statusCode).toBe(400);
         expect(response.body).toMatchObject({status: 400, code: "INVALID_REQUEST", errors:[
-            {location: "query", msg: "Invalid value", param: "sharePrices"},
-            {location: "query", msg: "sharePrices should be true or false", param: "sharePrices"},
             {location: "query", msg: "orderBy should be one of [score, volatility]", param: "orderBy", value: "total"},
             {location: "query", msg: "exchange should be one of [ASX, NYSE, NasdaqGS]", param: "exchange", value: "ASXL"}, 
             {location: "query", msg: "Invalid value", param: "minScore", value: "-1"}, 
