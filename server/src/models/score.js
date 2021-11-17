@@ -1,4 +1,4 @@
-// import connection 
+// Local Imports
 import database from "../database/database.js";
 
 // Destructure Sequelize vars

@@ -1,6 +1,8 @@
+// Local Imports
 import Score from "../models/score.js";
 import SharePrice from "../models/sharePrice.js";
 
+/* Basic components to build a query */
 const DEFAULT_LIMIT = 3;
 const DEFAULT_OFFSET = 0;
 

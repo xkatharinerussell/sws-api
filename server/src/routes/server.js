@@ -1,40 +1,48 @@
 import express from "express";
+import cors from "cors";
 import logger from 'loglevel';
 
 // Local imports
 import { getRoutes } from "./routes.js";
 
+const DEFAULT_PORT = 8081;
+// Get Port number
+const port = process.env.SERVER_PORT || DEFAULT_PORT;
+
 export const startServer = () => {
     const app = express();
+    // Use express json
+    app.use(express.json());
+    // Use cors
+    app.use(cors());
     // Mount routes on '/' path
     app.use('/', getRoutes());
 
-    // Get Port number
-    const port = process.env.SERVER_PORT || 8081;
     return new Promise(resolve => {
         const server = app.listen(port, () => {
           logger.info(`Server started, listening on port ${port}`);
         })
 
-        // this block of code turns `server.close` into a promise API
-        const originalClose = server.close.bind(server)
+        // Bind to 'server.close' to return a promise
+        const boundClose = server.close.bind(server);
         server.close = () => {
             return new Promise(resolveClose => {
-                originalClose(resolveClose);
+                boundClose(resolveClose);
             })
         }
-
+        
+        // Close server on any error events
         closeServerOnError(server);
 
-        // resolve the whole promise with the express server
+        // Resolve the whole promise with the express server
         resolve(server);
     })
 }
 
-// TODO: comment this section + figur out what is going on
+// Close the server gracefully for different situations
 const closeServerOnError = (server) => {
-    async function exitHandler(options = {}) {
-        await server
+    const handler = async (options = {}) => {
+      await server
           .close()
           .then(() => {
             logger.info('Server successfully closed')
@@ -44,18 +52,18 @@ const closeServerOnError = (server) => {
           })
     
         if (options.exit) process.exit()
-      }
+    }
     
-      //do something when app is closing
-      process.on('exit', exitHandler)
+      // Deal with app closing 
+      process.on('exit', handler)
     
-      // catches ctrl+c event
-      process.on('SIGINT', exitHandler.bind(null, {exit: true}))
+      // Deal with ctrl+c event
+      process.on('SIGINT', handler.bind(null, {exit: true}))
     
-      // catches "kill pid" (for example: nodemon restart)
-      process.on('SIGUSR1', exitHandler.bind(null, {exit: true}))
-      process.on('SIGUSR2', exitHandler.bind(null, {exit: true}))
+      // Deal with any "kill pid" events
+      process.on('SIGUSR1', handler.bind(null, {exit: true}))
+      process.on('SIGUSR2', handler.bind(null, {exit: true}))
     
-      // catches uncaught exceptions
-      process.on('uncaughtException', exitHandler.bind(null, {exit: true}))
+      // Deal with any other events
+      process.on('uncaughtException', handler.bind(null, {exit: true}))
 }

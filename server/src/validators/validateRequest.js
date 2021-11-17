@@ -1,5 +1,7 @@
 import { validationResult } from 'express-validator';
 
+/* Middleware function to validate request and return errors */
+
 export const validateRequest = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

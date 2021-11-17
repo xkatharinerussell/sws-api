@@ -1,11 +1,14 @@
+// Third Party Imports
 import { Sequelize } from "sequelize";
+
+// Local imports
 import { dbConfig } from "./databaseConfig.js";
+
+/* Configure connection to Database */
 
 const database = {};
 
-/* Configure connection to Database */
 const DEFAULT_ENV = "development";
-
 // Get Environment 
 const env = process.env.NODE_ENV || DEFAULT_ENV;
 
@@ -14,6 +17,7 @@ const sequelizeDb = new Sequelize(dbConfig[env]);
 
 // The database instance
 database.db = sequelizeDb;
+
 // Sequelize library
 database.Sequelize = Sequelize;
 

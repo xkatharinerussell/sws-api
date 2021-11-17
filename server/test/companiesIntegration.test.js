@@ -1,19 +1,30 @@
+// Third Party Imports
 import request from 'supertest';
+
+// Local Imports
 import { startServer } from '../src/routes/server.js';
 import database from '../src/database/database.js';
+
+/* Integration tests to call GetCompanies Endpoint */
 
 const { db } = database;
 let baseUrl;
 let server;
 
-beforeAll(async() => {
-    // Assign
+beforeAll(async () => {
+    // Start server before each test run
     server = await startServer();
-    baseUrl = `http://localhost:3000`;
+    baseUrl = `http://localhost:8081`;
+})
+
+afterAll(async () => {
+    // Close database connection and server after each test run
+    await db.close();
+    server.close();
 })
 
 describe('Companies Endpoint', () => {
-    it("Invalid Query Params", async () => {
+    it("Return error when invalid Query Params", async () => {
         // Act
         const response = await request(baseUrl)
         .get('/company?exchange=ASXL&minScore=-1&maxScore=50&orderBy=total');
@@ -107,10 +118,4 @@ describe('Companies Endpoint', () => {
         expect(response.body.data[0].exchangeSymbol).toBe("ASX");
         expect(response.body.data[1].exchangeSymbol).toBe("ASX");
     })
-})
-
-// After all tests have finished, close the DB connection
-afterAll(async () => {
-    //await db.close(); TODO: Fix
-    server.close();
 })

@@ -1,9 +1,9 @@
-// import db connection 
+// Local Imports
 import database from "../database/database.js";
 import Score from "./score.js";
 import SharePrice from "./sharePrice.js";
 
-// Destructure DataTypes
+// Destructure Sequelize vars
 const { Sequelize, db } = database;
 const { DataTypes } = Sequelize;
 

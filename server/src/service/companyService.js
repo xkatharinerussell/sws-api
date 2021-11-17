@@ -1,4 +1,7 @@
+// Third Party Imports
 import logger from 'loglevel';
+
+// Local Imports
 import Company from "../models/company.js";
 import { companiesBaseQuery, companiesAttributes, includeScore, includeSharePrices } from "./companyQueries.js"
 
@@ -58,6 +61,7 @@ export const queryAllCompanies = async (req) => {
         const count = countCompanies.length;
         return { count, companies };
     } catch (err) {
+        logger.error(`Failed to query for companies.`, err.stack);
         throw err;
     }
 }

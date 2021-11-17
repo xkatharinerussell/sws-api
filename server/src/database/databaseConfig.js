@@ -1,3 +1,5 @@
+/* Configuration for database based on environment */
+
 // TODO: use path
 export const dbConfig = {
     development: {
